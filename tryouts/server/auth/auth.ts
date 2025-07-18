@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import { User } from '../../lib/generated/prisma/index';
+import { User } from '../models/prisma/index';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {

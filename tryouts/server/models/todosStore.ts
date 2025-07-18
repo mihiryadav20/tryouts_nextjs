@@ -1,8 +1,4 @@
-export interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-}
+import { Todo } from './Todo';
 
 const todos: Todo[] = [];
 
