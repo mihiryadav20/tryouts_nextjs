@@ -1,15 +1,37 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { getThemeColor } from "../../theme";
+import {Button} from "@heroui/react";
 
 export default function LoginButton() {
   const { data: session } = useSession();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check if user prefers dark mode
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(prefersDark);
+
+    // Listen for changes in color scheme preference
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   if (session) {
     return (
       <button
         onClick={() => signOut()}
-        className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto"
+        className="rounded-full border border-solid transition-colors flex items-center justify-center font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto"
+        style={{
+          borderColor: getThemeColor(isDarkMode ? 'default.300' : 'default.200', isDarkMode),
+          backgroundColor: getThemeColor(isDarkMode ? 'content1.DEFAULT' : 'content1.DEFAULT', isDarkMode),
+          color: getThemeColor(isDarkMode ? 'foreground' : 'foreground', isDarkMode)
+        }}
       >
         Sign out
       </button>
@@ -19,7 +41,11 @@ export default function LoginButton() {
   return (
     <button
       onClick={() => signIn("google")}
-      className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
+      className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center gap-2 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
+      style={{
+        backgroundColor: getThemeColor(isDarkMode ? 'primary.DEFAULT' : 'primary.DEFAULT', isDarkMode),
+        color: getThemeColor(isDarkMode ? 'primary.foreground' : 'primary.foreground', isDarkMode)
+      }}
     >
       <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
         <path
