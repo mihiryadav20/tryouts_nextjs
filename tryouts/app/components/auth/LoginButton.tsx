@@ -1,24 +1,25 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 export default function LoginButton() {
   const { data: session } = useSession();
 
   if (session) {
     return (
-      <button 
-        className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-md transition-colors"
+      <Button 
+        variant="outline"
         onClick={() => signOut()}
       >
         Sign out
-      </button>
+      </Button>
     );
   }
 
   return (  
-    <button
-      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md flex items-center gap-2 transition-colors"
+    <Button
+      variant="default"
       onClick={() => signIn("google")}
     >
       <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -28,6 +29,6 @@ export default function LoginButton() {
         />
       </svg>
       Sign in with Google
-    </button>
+    </Button>
   );
 }

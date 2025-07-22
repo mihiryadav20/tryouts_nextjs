@@ -2,7 +2,9 @@
 
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export default function UserProfile() {
   const { data: session } = useSession();
@@ -13,34 +15,29 @@ export default function UserProfile() {
   }
 
   return (
-    <div className="max-w-md bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative w-20 h-20 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+    <Card className="max-w-md w-full">
+      <CardContent className="flex flex-col items-center space-y-4 pt-6">
+        <Avatar className="h-20 w-20">
           {session.user.image && !imageError ? (
-            <Image
+            <AvatarImage 
               src={session.user.image}
               alt={session.user.name || "User"}
-              width={80}
-              height={80}
-              className="object-cover rounded-full"
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span className="text-2xl font-bold text-gray-600 dark:text-gray-300">
-                {session.user.name?.charAt(0) || "U"}
-              </span>
-            </div>
+            <AvatarFallback className="text-2xl">
+              {session.user.name?.charAt(0) || "U"}
+            </AvatarFallback>
           )}
-        </div>
+        </Avatar>
         <div className="text-center">
           <h2 className="text-xl font-semibold">{session.user.name}</h2>
-          <p className="text-gray-600 dark:text-gray-300">{session.user.email}</p>
+          <p className="text-muted-foreground">{session.user.email}</p>
         </div>
-        <span className="px-3 py-1 text-sm font-medium bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 rounded-full">
+        <Badge variant="success">
           Authenticated
-        </span>
-      </div>
-    </div>
+        </Badge>
+      </CardContent>
+    </Card>
   );
 }
