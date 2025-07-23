@@ -61,8 +61,8 @@ export function LoginForm({
       </div>
       <div className="grid gap-4">
         <Button
-          onClick={() => signIn("google")}
-          className="w-full"
+          onClick={() => signIn("google", { callbackUrl: "/profile" })}
+          className="w-full "
           size="lg"
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
