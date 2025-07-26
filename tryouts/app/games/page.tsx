@@ -33,6 +33,7 @@ export default function GamesPage() {
   // Form state
   const [formData, setFormData] = useState({
     eventName: '',
+    gameDate: '',
     startTime: '',
     endTime: '',
     location: '',
@@ -74,12 +75,20 @@ export default function GamesPage() {
     setCreating(true);
 
     try {
+      // Combine date with times
+      const startTime = `${formData.gameDate}T${formData.startTime}`;
+      const endTime = `${formData.gameDate}T${formData.endTime}`;
+      
       const response = await fetch('/api/games', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          startTime,
+          endTime
+        }),
         credentials: 'include', // send session cookies
       });
 
@@ -87,6 +96,7 @@ export default function GamesPage() {
         // Reset form and refresh games
         setFormData({
           eventName: '',
+          gameDate: '',
           startTime: '',
           endTime: '',
           location: '',
@@ -175,9 +185,21 @@ export default function GamesPage() {
             </div>
 
             <div>
+              <label className="block text-sm font-medium mb-1">Game Date *</label>
+              <input
+                type="date"
+                name="gameDate"
+                value={formData.gameDate}
+                onChange={handleInputChange}
+                required
+                className="w-full p-2 border rounded"
+              />
+            </div>
+
+            <div>
               <label className="block text-sm font-medium mb-1">Start Time *</label>
               <input
-                type="datetime-local"
+                type="time"
                 name="startTime"
                 value={formData.startTime}
                 onChange={handleInputChange}
@@ -189,7 +211,7 @@ export default function GamesPage() {
             <div>
               <label className="block text-sm font-medium mb-1">End Time *</label>
               <input
-                type="datetime-local"
+                type="time"
                 name="endTime"
                 value={formData.endTime}
                 onChange={handleInputChange}
