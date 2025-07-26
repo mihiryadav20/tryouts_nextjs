@@ -114,7 +114,7 @@ export async function PUT(
       );
     }
 
-    if (existingGame.organizerId !== session.user.id) {
+    if (existingGame.organizerId !== user.id) {
       return NextResponse.json(
         { error: 'Forbidden. You can only update games you created.' },
         { status: 403 }
@@ -222,9 +222,11 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    // Check authentication
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
+    // Get user from token
+    const user = await getUserFromToken(request);
+    console.log('User from token in DELETE /api/games/[id]:', JSON.stringify(user));
+    
+    if (!user?.id) {
       return NextResponse.json(
         { error: 'Unauthorized. Please sign in to delete games.' },
         { status: 401 }
@@ -242,7 +244,7 @@ export async function DELETE(
       );
     }
 
-    if (existingGame.organizerId !== session.user.id) {
+    if (existingGame.organizerId !== user.id) {
       return NextResponse.json(
         { error: 'Forbidden. You can only delete games you created.' },
         { status: 403 }
