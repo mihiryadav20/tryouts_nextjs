@@ -50,7 +50,8 @@ export default function GamesPage() {
       const response = await fetch('/api/games', { credentials: 'include' });
       if (response.ok) {
         const data = await response.json();
-        setGames(data.games || []);
+        console.log('Games API response:', data);
+        setGames(data.data || []);
       }
     } catch (error) {
       console.error('Error fetching games:', error);
