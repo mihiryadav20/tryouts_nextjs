@@ -1,40 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/lib/auth';
+import { getToken } from 'next-auth/jwt';
 import { createGame, getGames } from '@/api/models/game';
-import { decode } from 'next-auth/jwt';
 
-// Helper function to get user from session token
+// Helper function to get user from token
 async function getUserFromToken(request: NextRequest) {
   try {
-    const cookieHeader = request.headers.get('cookie') || '';
-    const sessionTokenCookie = cookieHeader
-      .split(';')
-      .find(c => c.trim().startsWith('next-auth.session-token='));
+    // Log request headers to debug cookie issues
+    console.log('Request cookies:', request.headers.get('cookie'));
     
-    if (!sessionTokenCookie) {
-      console.log('No session token found in cookies');
+    // Get token directly using next-auth/jwt getToken with secure cookie name
+    const token = await getToken({ 
+      req: request,
+      cookieName: 'next-auth.session-token',
+      secureCookie: process.env.NODE_ENV === 'production'
+    });
+    console.log('Token from getToken:', JSON.stringify(token));
+    
+    if (!token?.sub) {
+      console.log('No user ID in token');
       return null;
     }
     
-    const token = sessionTokenCookie.split('=')[1].trim();
-    const decoded = await decode({
-      token,
-      secret: process.env.NEXTAUTH_SECRET || 'your-secret-key-here'
-    });
-    
-    console.log('Decoded token:', JSON.stringify(decoded));
-    
-    if (!decoded) return null;
-    
     return {
-      id: decoded.sub,
-      name: decoded.name,
-      email: decoded.email,
-      image: decoded.picture
+      id: token.sub,
+      name: token.name as string,
+      email: token.email as string,
+      image: token.picture as string
     };
   } catch (error) {
-    console.error('Error decoding token:', error);
+    console.error('Error getting token:', error);
     return null;
   }
 }

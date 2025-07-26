@@ -47,7 +47,7 @@ export default function GamesPage() {
   // Fetch games
   const fetchGames = async () => {
     try {
-      const response = await fetch('/api/games');
+      const response = await fetch('/api/games', { credentials: 'include' });
       if (response.ok) {
         const data = await response.json();
         setGames(data.games || []);
@@ -79,6 +79,7 @@ export default function GamesPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        credentials: 'include', // send session cookies
       });
 
       if (response.ok) {
