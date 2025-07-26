@@ -63,8 +63,8 @@ model Post {
 model Game {
   id              String   @id @default(cuid())
   eventName       String
-  date            DateTime
-  timings         DateTime
+  startTime       DateTime
+  endTime         DateTime
   location        String
   costPerPerson   Float
   description     String?

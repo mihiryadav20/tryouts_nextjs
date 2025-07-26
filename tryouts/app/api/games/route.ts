@@ -110,8 +110,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
       eventName,
-      date,
-      timings,
+      startTime,
+      endTime,
       location,
       costPerPerson,
       description,
@@ -123,22 +123,29 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Validate required fields
-    if (!eventName || !date || !timings || !location || 
+    if (!eventName || !startTime || !endTime || !location || 
         costPerPerson === undefined || !playersRequired || !maxPlayers || !sportType) {
       return NextResponse.json(
-        { error: 'Missing required fields. Please provide eventName, date, timings, location, costPerPerson, playersRequired, maxPlayers, and sportType.' },
+        { error: 'Missing required fields. Please provide eventName, startTime, endTime, location, costPerPerson, playersRequired, maxPlayers, and sportType.' },
         { status: 400 }
       );
     }
 
     // Validate dates
-    const gameDate = new Date(date);
-    const gameTimings = new Date(timings);
+    const start = new Date(startTime);
+    const end = new Date(endTime);
     const now = new Date();
 
-    if (gameDate <= now) {
+    if (start <= now) {
       return NextResponse.json(
-        { error: 'Game date must be in the future.' },
+        { error: 'Start time must be in the future.' },
+        { status: 400 }
+      );
+    }
+
+    if (end <= start) {
+      return NextResponse.json(
+        { error: 'End time must be after start time.' },
         { status: 400 }
       );
     }
@@ -161,8 +168,8 @@ export async function POST(request: NextRequest) {
     // Create game data
     const gameData = {
       eventName,
-      date: gameDate,
-      timings: gameTimings,
+      startTime: start,
+      endTime: end,
       location,
       costPerPerson: parseFloat(costPerPerson),
       description: description || null,
