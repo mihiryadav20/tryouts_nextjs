@@ -163,6 +163,24 @@ exports.Prisma.PostScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.GameScalarFieldEnum = {
+  id: 'id',
+  eventName: 'eventName',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  location: 'location',
+  costPerPerson: 'costPerPerson',
+  description: 'description',
+  playersRequired: 'playersRequired',
+  maxPlayers: 'maxPlayers',
+  sportType: 'sportType',
+  skillLevel: 'skillLevel',
+  status: 'status',
+  organizerId: 'organizerId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.VerificationTokenScalarFieldEnum = {
   identifier: 'identifier',
   token: 'token',
@@ -190,6 +208,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   User: 'User',
   Post: 'Post',
+  Game: 'Game',
   VerificationToken: 'VerificationToken'
 };
 

@@ -44,6 +44,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  games         Game[] // Relation to games organized by this user
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
 }
@@ -57,6 +58,25 @@ model Post {
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Game {
+  id              String   @id @default(cuid())
+  eventName       String
+  startTime       DateTime
+  endTime         DateTime
+  location        String
+  costPerPerson   Float
+  description     String?
+  playersRequired Int
+  maxPlayers      Int
+  sportType       String
+  skillLevel      String   @default("Beginner") // Beginner, Intermediate, Advanced
+  status          String   @default("live") // live or expired
+  organizerId     String
+  organizer       User     @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model VerificationToken {
