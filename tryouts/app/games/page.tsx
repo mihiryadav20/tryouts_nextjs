@@ -6,8 +6,8 @@ import { useSession } from 'next-auth/react';
 interface Game {
   id: string;
   eventName: string;
-  startTime: string;
-  endTime: string;
+  date: string;
+  timings: string;
   location: string;
   costPerPerson: number;
   description?: string;
@@ -33,8 +33,8 @@ export default function GamesPage() {
   // Form state
   const [formData, setFormData] = useState({
     eventName: '',
-    startTime: '',
-    endTime: '',
+    date: '',
+    timings: '',
     location: '',
     costPerPerson: '',
     description: '',
@@ -87,8 +87,8 @@ export default function GamesPage() {
         // Reset form and refresh games
         setFormData({
           eventName: '',
-          startTime: '',
-          endTime: '',
+          date: '',
+          timings: '',
           location: '',
           costPerPerson: '',
           description: '',
@@ -175,11 +175,11 @@ export default function GamesPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Start Time *</label>
+              <label className="block text-sm font-medium mb-1">Date *</label>
               <input
-                type="datetime-local"
-                name="startTime"
-                value={formData.startTime}
+                type="date"
+                name="date"
+                value={formData.date}
                 onChange={handleInputChange}
                 required
                 className="w-full p-2 border rounded"
@@ -187,11 +187,11 @@ export default function GamesPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">End Time *</label>
+              <label className="block text-sm font-medium mb-1">Timings *</label>
               <input
-                type="datetime-local"
-                name="endTime"
-                value={formData.endTime}
+                type="time"
+                name="timings"
+                value={formData.timings}
                 onChange={handleInputChange}
                 required
                 className="w-full p-2 border rounded"
@@ -317,8 +317,8 @@ export default function GamesPage() {
                 </div>
                 
                 <div className="mt-2 text-sm text-gray-600">
-                  <p><strong>Start:</strong> {new Date(game.startTime).toLocaleString()}</p>
-                  <p><strong>End:</strong> {new Date(game.endTime).toLocaleString()}</p>
+                  <p><strong>Date:</strong> {new Date(game.date).toLocaleDateString()}</p>
+                  <p><strong>Time:</strong> {new Date(game.timings).toLocaleTimeString()}</p>
                 </div>
                 
                 {game.description && (

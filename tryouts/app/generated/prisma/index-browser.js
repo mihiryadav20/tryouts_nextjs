@@ -166,8 +166,8 @@ exports.Prisma.PostScalarFieldEnum = {
 exports.Prisma.GameScalarFieldEnum = {
   id: 'id',
   eventName: 'eventName',
-  startTime: 'startTime',
-  endTime: 'endTime',
+  date: 'date',
+  timings: 'timings',
   location: 'location',
   costPerPerson: 'costPerPerson',
   description: 'description',

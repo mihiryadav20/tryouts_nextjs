@@ -5913,8 +5913,8 @@ export namespace Prisma {
   export type GameMinAggregateOutputType = {
     id: string | null
     eventName: string | null
-    startTime: Date | null
-    endTime: Date | null
+    date: Date | null
+    timings: Date | null
     location: string | null
     costPerPerson: number | null
     description: string | null
@@ -5931,8 +5931,8 @@ export namespace Prisma {
   export type GameMaxAggregateOutputType = {
     id: string | null
     eventName: string | null
-    startTime: Date | null
-    endTime: Date | null
+    date: Date | null
+    timings: Date | null
     location: string | null
     costPerPerson: number | null
     description: string | null
@@ -5949,8 +5949,8 @@ export namespace Prisma {
   export type GameCountAggregateOutputType = {
     id: number
     eventName: number
-    startTime: number
-    endTime: number
+    date: number
+    timings: number
     location: number
     costPerPerson: number
     description: number
@@ -5981,8 +5981,8 @@ export namespace Prisma {
   export type GameMinAggregateInputType = {
     id?: true
     eventName?: true
-    startTime?: true
-    endTime?: true
+    date?: true
+    timings?: true
     location?: true
     costPerPerson?: true
     description?: true
@@ -5999,8 +5999,8 @@ export namespace Prisma {
   export type GameMaxAggregateInputType = {
     id?: true
     eventName?: true
-    startTime?: true
-    endTime?: true
+    date?: true
+    timings?: true
     location?: true
     costPerPerson?: true
     description?: true
@@ -6017,8 +6017,8 @@ export namespace Prisma {
   export type GameCountAggregateInputType = {
     id?: true
     eventName?: true
-    startTime?: true
-    endTime?: true
+    date?: true
+    timings?: true
     location?: true
     costPerPerson?: true
     description?: true
@@ -6122,8 +6122,8 @@ export namespace Prisma {
   export type GameGroupByOutputType = {
     id: string
     eventName: string
-    startTime: Date
-    endTime: Date
+    date: Date
+    timings: Date
     location: string
     costPerPerson: number
     description: string | null
@@ -6159,8 +6159,8 @@ export namespace Prisma {
   export type GameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     eventName?: boolean
-    startTime?: boolean
-    endTime?: boolean
+    date?: boolean
+    timings?: boolean
     location?: boolean
     costPerPerson?: boolean
     description?: boolean
@@ -6178,8 +6178,8 @@ export namespace Prisma {
   export type GameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     eventName?: boolean
-    startTime?: boolean
-    endTime?: boolean
+    date?: boolean
+    timings?: boolean
     location?: boolean
     costPerPerson?: boolean
     description?: boolean
@@ -6197,8 +6197,8 @@ export namespace Prisma {
   export type GameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     eventName?: boolean
-    startTime?: boolean
-    endTime?: boolean
+    date?: boolean
+    timings?: boolean
     location?: boolean
     costPerPerson?: boolean
     description?: boolean
@@ -6216,8 +6216,8 @@ export namespace Prisma {
   export type GameSelectScalar = {
     id?: boolean
     eventName?: boolean
-    startTime?: boolean
-    endTime?: boolean
+    date?: boolean
+    timings?: boolean
     location?: boolean
     costPerPerson?: boolean
     description?: boolean
@@ -6231,7 +6231,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventName" | "startTime" | "endTime" | "location" | "costPerPerson" | "description" | "playersRequired" | "maxPlayers" | "sportType" | "skillLevel" | "status" | "organizerId" | "createdAt" | "updatedAt", ExtArgs["result"]["game"]>
+  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventName" | "date" | "timings" | "location" | "costPerPerson" | "description" | "playersRequired" | "maxPlayers" | "sportType" | "skillLevel" | "status" | "organizerId" | "createdAt" | "updatedAt", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organizer?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6250,8 +6250,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       eventName: string
-      startTime: Date
-      endTime: Date
+      date: Date
+      timings: Date
       location: string
       costPerPerson: number
       description: string | null
@@ -6689,8 +6689,8 @@ export namespace Prisma {
   interface GameFieldRefs {
     readonly id: FieldRef<"Game", 'String'>
     readonly eventName: FieldRef<"Game", 'String'>
-    readonly startTime: FieldRef<"Game", 'DateTime'>
-    readonly endTime: FieldRef<"Game", 'DateTime'>
+    readonly date: FieldRef<"Game", 'DateTime'>
+    readonly timings: FieldRef<"Game", 'DateTime'>
     readonly location: FieldRef<"Game", 'String'>
     readonly costPerPerson: FieldRef<"Game", 'Float'>
     readonly description: FieldRef<"Game", 'String'>
@@ -8157,8 +8157,8 @@ export namespace Prisma {
   export const GameScalarFieldEnum: {
     id: 'id',
     eventName: 'eventName',
-    startTime: 'startTime',
-    endTime: 'endTime',
+    date: 'date',
+    timings: 'timings',
     location: 'location',
     costPerPerson: 'costPerPerson',
     description: 'description',
@@ -8572,8 +8572,8 @@ export namespace Prisma {
     NOT?: GameWhereInput | GameWhereInput[]
     id?: StringFilter<"Game"> | string
     eventName?: StringFilter<"Game"> | string
-    startTime?: DateTimeFilter<"Game"> | Date | string
-    endTime?: DateTimeFilter<"Game"> | Date | string
+    date?: DateTimeFilter<"Game"> | Date | string
+    timings?: DateTimeFilter<"Game"> | Date | string
     location?: StringFilter<"Game"> | string
     costPerPerson?: FloatFilter<"Game"> | number
     description?: StringNullableFilter<"Game"> | string | null
@@ -8591,8 +8591,8 @@ export namespace Prisma {
   export type GameOrderByWithRelationInput = {
     id?: SortOrder
     eventName?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
+    date?: SortOrder
+    timings?: SortOrder
     location?: SortOrder
     costPerPerson?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -8613,8 +8613,8 @@ export namespace Prisma {
     OR?: GameWhereInput[]
     NOT?: GameWhereInput | GameWhereInput[]
     eventName?: StringFilter<"Game"> | string
-    startTime?: DateTimeFilter<"Game"> | Date | string
-    endTime?: DateTimeFilter<"Game"> | Date | string
+    date?: DateTimeFilter<"Game"> | Date | string
+    timings?: DateTimeFilter<"Game"> | Date | string
     location?: StringFilter<"Game"> | string
     costPerPerson?: FloatFilter<"Game"> | number
     description?: StringNullableFilter<"Game"> | string | null
@@ -8632,8 +8632,8 @@ export namespace Prisma {
   export type GameOrderByWithAggregationInput = {
     id?: SortOrder
     eventName?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
+    date?: SortOrder
+    timings?: SortOrder
     location?: SortOrder
     costPerPerson?: SortOrder
     description?: SortOrderInput | SortOrder
@@ -8658,8 +8658,8 @@ export namespace Prisma {
     NOT?: GameScalarWhereWithAggregatesInput | GameScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Game"> | string
     eventName?: StringWithAggregatesFilter<"Game"> | string
-    startTime?: DateTimeWithAggregatesFilter<"Game"> | Date | string
-    endTime?: DateTimeWithAggregatesFilter<"Game"> | Date | string
+    date?: DateTimeWithAggregatesFilter<"Game"> | Date | string
+    timings?: DateTimeWithAggregatesFilter<"Game"> | Date | string
     location?: StringWithAggregatesFilter<"Game"> | string
     costPerPerson?: FloatWithAggregatesFilter<"Game"> | number
     description?: StringNullableWithAggregatesFilter<"Game"> | string | null
@@ -9033,8 +9033,8 @@ export namespace Prisma {
   export type GameCreateInput = {
     id?: string
     eventName: string
-    startTime: Date | string
-    endTime: Date | string
+    date: Date | string
+    timings: Date | string
     location: string
     costPerPerson: number
     description?: string | null
@@ -9051,8 +9051,8 @@ export namespace Prisma {
   export type GameUncheckedCreateInput = {
     id?: string
     eventName: string
-    startTime: Date | string
-    endTime: Date | string
+    date: Date | string
+    timings: Date | string
     location: string
     costPerPerson: number
     description?: string | null
@@ -9069,8 +9069,8 @@ export namespace Prisma {
   export type GameUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9087,8 +9087,8 @@ export namespace Prisma {
   export type GameUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9105,8 +9105,8 @@ export namespace Prisma {
   export type GameCreateManyInput = {
     id?: string
     eventName: string
-    startTime: Date | string
-    endTime: Date | string
+    date: Date | string
+    timings: Date | string
     location: string
     costPerPerson: number
     description?: string | null
@@ -9123,8 +9123,8 @@ export namespace Prisma {
   export type GameUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9140,8 +9140,8 @@ export namespace Prisma {
   export type GameUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9570,8 +9570,8 @@ export namespace Prisma {
   export type GameCountOrderByAggregateInput = {
     id?: SortOrder
     eventName?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
+    date?: SortOrder
+    timings?: SortOrder
     location?: SortOrder
     costPerPerson?: SortOrder
     description?: SortOrder
@@ -9594,8 +9594,8 @@ export namespace Prisma {
   export type GameMaxOrderByAggregateInput = {
     id?: SortOrder
     eventName?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
+    date?: SortOrder
+    timings?: SortOrder
     location?: SortOrder
     costPerPerson?: SortOrder
     description?: SortOrder
@@ -9612,8 +9612,8 @@ export namespace Prisma {
   export type GameMinOrderByAggregateInput = {
     id?: SortOrder
     eventName?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
+    date?: SortOrder
+    timings?: SortOrder
     location?: SortOrder
     costPerPerson?: SortOrder
     description?: SortOrder
@@ -10408,8 +10408,8 @@ export namespace Prisma {
   export type GameCreateWithoutOrganizerInput = {
     id?: string
     eventName: string
-    startTime: Date | string
-    endTime: Date | string
+    date: Date | string
+    timings: Date | string
     location: string
     costPerPerson: number
     description?: string | null
@@ -10425,8 +10425,8 @@ export namespace Prisma {
   export type GameUncheckedCreateWithoutOrganizerInput = {
     id?: string
     eventName: string
-    startTime: Date | string
-    endTime: Date | string
+    date: Date | string
+    timings: Date | string
     location: string
     costPerPerson: number
     description?: string | null
@@ -10560,8 +10560,8 @@ export namespace Prisma {
     NOT?: GameScalarWhereInput | GameScalarWhereInput[]
     id?: StringFilter<"Game"> | string
     eventName?: StringFilter<"Game"> | string
-    startTime?: DateTimeFilter<"Game"> | Date | string
-    endTime?: DateTimeFilter<"Game"> | Date | string
+    date?: DateTimeFilter<"Game"> | Date | string
+    timings?: DateTimeFilter<"Game"> | Date | string
     location?: StringFilter<"Game"> | string
     costPerPerson?: FloatFilter<"Game"> | number
     description?: StringNullableFilter<"Game"> | string | null
@@ -10751,8 +10751,8 @@ export namespace Prisma {
   export type GameCreateManyOrganizerInput = {
     id?: string
     eventName: string
-    startTime: Date | string
-    endTime: Date | string
+    date: Date | string
+    timings: Date | string
     location: string
     costPerPerson: number
     description?: string | null
@@ -10855,8 +10855,8 @@ export namespace Prisma {
   export type GameUpdateWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10872,8 +10872,8 @@ export namespace Prisma {
   export type GameUncheckedUpdateWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10889,8 +10889,8 @@ export namespace Prisma {
   export type GameUncheckedUpdateManyWithoutOrganizerInput = {
     id?: StringFieldUpdateOperationsInput | string
     eventName?: StringFieldUpdateOperationsInput | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    timings?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     costPerPerson?: FloatFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null

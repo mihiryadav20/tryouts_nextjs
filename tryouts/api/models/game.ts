@@ -47,8 +47,8 @@ export async function getGames(options?: {
  */
 export async function createGame(data: {
   eventName: string;
-  startTime: Date;
-  endTime: Date;
+  date: Date;
+  timings: Date;
   location: string;
   costPerPerson: number;
   description?: string | null;
@@ -74,8 +74,8 @@ export async function updateGame(
   id: string,
   data: Partial<{
     eventName: string;
-    startTime: Date;
-    endTime: Date;
+    date: Date;
+    timings: Date;
     location: string;
     costPerPerson: number;
     description: string | null;
@@ -119,7 +119,7 @@ export async function getGamesByOrganizer(organizerId: string, options?: {
     },
     skip,
     take,
-    orderBy: { startTime: 'asc' },
+    orderBy: { date: 'asc' },
     include: {
       organizer: {
         select: {
@@ -147,14 +147,14 @@ export async function getLiveGames(options?: {
   
   return prisma.game.findMany({
     where: {
-      startTime: { gt: now },
+      date: { gt: now },
       status: 'live',
       ...(sportType ? { sportType } : {}),
       ...(skillLevel ? { skillLevel } : {}),
     },
     skip,
     take,
-    orderBy: { startTime: 'asc' },
+    orderBy: { date: 'asc' },
     include: {
       organizer: {
         select: {
