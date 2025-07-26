@@ -339,8 +339,20 @@ export default function GamesPage() {
                 </div>
                 
                 <div className="mt-2 text-sm text-gray-600">
-                  <p><strong>Start:</strong> {new Date(game.startTime).toLocaleString()}</p>
-                  <p><strong>End:</strong> {new Date(game.endTime).toLocaleString()}</p>
+                  <p><strong>Game date:</strong> {new Date(game.startTime).toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}</p>
+                  <p><strong>Game timings:</strong> {new Date(game.startTime).toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                  })} - {new Date(game.endTime).toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: true 
+                  })}</p>
                 </div>
                 
                 {game.description && (
