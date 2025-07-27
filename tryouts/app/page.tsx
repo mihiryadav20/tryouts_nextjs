@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -12,7 +12,7 @@ export default function HomePage() {
     <div className="container mx-auto p-6 space-y-12">
       <div className="text-center space-y-6">
         <h1 className="text-4xl font-bold text-foreground">
-          Welcome to GameHub
+          Welcome to Sidelines
         </h1>
         <p className="text-xl text-muted-foreground">
           Organize and join sports games in your area
@@ -43,6 +43,9 @@ export default function HomePage() {
             <p className="text-lg text-foreground">
               Sign in to start organizing and joining games
             </p>
+            <Button onClick={() => signIn('google')} size="lg">
+              Sign In with Google
+            </Button>
           </div>
         )}
       </div>

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 export default function UserProfileLink() {
   const { data: session, status } = useSession();
 
-  if (status === "loading" || status === "unauthenticated") return null;
+  if (status === "loading" || status === "unauthenticated" || !session) return null;
 
   return (
     <Link
