@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/components/auth-provider";
 import { ThemeProvider } from "@/components/theme-provider";
-import Navigation from "@/components/navigation";
+import UserProfileLink from "@/components/UserProfileLink";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,7 +33,10 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider>
             <div className="min-h-screen bg-background">
-              <Navigation />
+              <div className="flex justify-end items-center h-16 px-6">
+                {/* User name/profile link */}
+                <UserProfileLink />
+              </div>
               <main className="bg-background text-foreground">
                 {children}
               </main>
