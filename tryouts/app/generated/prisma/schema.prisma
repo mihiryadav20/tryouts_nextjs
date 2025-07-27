@@ -43,21 +43,9 @@ model User {
   password      String? // For local auth fallback
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
   games         Game[] // Relation to games organized by this user
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
-}
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Game {

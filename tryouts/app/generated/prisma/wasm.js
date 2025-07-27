@@ -153,16 +153,6 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PostScalarFieldEnum = {
-  id: 'id',
-  title: 'title',
-  content: 'content',
-  published: 'published',
-  authorId: 'authorId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.GameScalarFieldEnum = {
   id: 'id',
   eventName: 'eventName',
@@ -207,7 +197,6 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
   User: 'User',
-  Post: 'Post',
   Game: 'Game',
   VerificationToken: 'VerificationToken'
 };
