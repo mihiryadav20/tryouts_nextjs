@@ -2,6 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Game {
   id: string;
@@ -122,243 +128,270 @@ export default function GamesPage() {
   };
 
   // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
+  // Handle select changes
+  const handleSelectChange = (value: string) => {
+    setFormData({
+      ...formData,
+      skillLevel: value
+    });
+  };
+
   if (status === 'loading' || loading) {
-    return <div className="p-8">Loading...</div>;
+    return (
+      <div className="container mx-auto p-6">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
   }
 
   if (status === 'unauthenticated') {
     return (
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4">Games</h1>
-        <p>Please sign in to view and create games.</p>
+      <div className="container mx-auto p-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Games</CardTitle>
+            <CardDescription>Please sign in to view and create games.</CardDescription>
+          </CardHeader>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
+    <div className="container mx-auto p-6 space-y-6">
+      <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Games</h1>
-        <button
+        <Button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          variant={showCreateForm ? "outline" : "default"}
         >
           {showCreateForm ? 'Cancel' : 'Create Game'}
-        </button>
+        </Button>
       </div>
 
       {/* Create Game Form */}
       {showCreateForm && (
-        <div className="bg-gray-50 p-6 rounded-lg mb-6 text-black">
-          <h2 className="text-xl font-semibold mb-4">Create New Game</h2>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Event Name *</label>
-              <input
-                type="text"
-                name="eventName"
-                value={formData.eventName}
-                onChange={handleInputChange}
-                required
-                className="w-full p-2 border rounded"
-              />
-            </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Create New Game</CardTitle>
+            <CardDescription>Fill in the details to organize a new game</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="eventName">Event Name *</Label>
+                <Input
+                  id="eventName"
+                  name="eventName"
+                  value={formData.eventName}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Sport Type *</label>
-              <input
-                type="text"
-                name="sportType"
-                value={formData.sportType}
-                onChange={handleInputChange}
-                required
-                className="w-full p-2 border rounded"
-                placeholder="e.g., Basketball, Football, Tennis"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="sportType">Sport Type *</Label>
+                <Input
+                  id="sportType"
+                  name="sportType"
+                  value={formData.sportType}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="e.g., Basketball, Football, Tennis"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Game Date *</label>
-              <input
-                type="date"
-                name="gameDate"
-                value={formData.gameDate}
-                onChange={handleInputChange}
-                required
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="gameDate">Game Date *</Label>
+                <Input
+                  id="gameDate"
+                  name="gameDate"
+                  type="date"
+                  value={formData.gameDate}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Start Time *</label>
-              <input
-                type="time"
-                name="startTime"
-                value={formData.startTime}
-                onChange={handleInputChange}
-                required
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="startTime">Start Time *</Label>
+                <Input
+                  id="startTime"
+                  name="startTime"
+                  type="time"
+                  value={formData.startTime}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">End Time *</label>
-              <input
-                type="time"
-                name="endTime"
-                value={formData.endTime}
-                onChange={handleInputChange}
-                required
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="endTime">End Time *</Label>
+                <Input
+                  id="endTime"
+                  name="endTime"
+                  type="time"
+                  value={formData.endTime}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Location *</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleInputChange}
-                required
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="location">Location *</Label>
+                <Input
+                  id="location"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Cost Per Person *</label>
-              <input
-                type="number"
-                name="costPerPerson"
-                value={formData.costPerPerson}
-                onChange={handleInputChange}
-                required
-                min="0"
-                step="0.01"
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="costPerPerson">Cost Per Person *</Label>
+                <Input
+                  id="costPerPerson"
+                  name="costPerPerson"
+                  type="number"
+                  value={formData.costPerPerson}
+                  onChange={handleInputChange}
+                  required
+                  min="0"
+                  step="0.01"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Players Required *</label>
-              <input
-                type="number"
-                name="playersRequired"
-                value={formData.playersRequired}
-                onChange={handleInputChange}
-                required
-                min="1"
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="playersRequired">Players Required *</Label>
+                <Input
+                  id="playersRequired"
+                  name="playersRequired"
+                  type="number"
+                  value={formData.playersRequired}
+                  onChange={handleInputChange}
+                  required
+                  min="1"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Max Players *</label>
-              <input
-                type="number"
-                name="maxPlayers"
-                value={formData.maxPlayers}
-                onChange={handleInputChange}
-                required
-                min="1"
-                className="w-full p-2 border rounded"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="maxPlayers">Max Players *</Label>
+                <Input
+                  id="maxPlayers"
+                  name="maxPlayers"
+                  type="number"
+                  value={formData.maxPlayers}
+                  onChange={handleInputChange}
+                  required
+                  min="1"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Skill Level</label>
-              <select
-                name="skillLevel"
-                value={formData.skillLevel}
-                onChange={handleInputChange}
-                className="w-full p-2 border rounded"
-              >
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-              </select>
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="skillLevel">Skill Level</Label>
+                <Select value={formData.skillLevel} onValueChange={handleSelectChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select skill level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Beginner">Beginner</SelectItem>
+                    <SelectItem value="Intermediate">Intermediate</SelectItem>
+                    <SelectItem value="Advanced">Advanced</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium mb-1">Description</label>
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                rows={3}
-                className="w-full p-2 border rounded"
-                placeholder="Optional description of the game..."
-              />
-            </div>
+              <div className="md:col-span-2 space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows={3}
+                  placeholder="Optional description of the game..."
+                />
+              </div>
 
-            <div className="md:col-span-2">
-              <button
-                type="submit"
-                disabled={creating}
-                className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 disabled:opacity-50"
-              >
-                {creating ? 'Creating...' : 'Create Game'}
-              </button>
-            </div>
-          </form>
-        </div>
+              <div className="md:col-span-2">
+                <Button type="submit" disabled={creating}>
+                  {creating ? 'Creating...' : 'Create Game'}
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
       )}
 
       {/* Games List */}
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Available Games</h2>
+        <h2 className="text-2xl font-semibold">Available Games</h2>
         {games.length === 0 ? (
-          <p className="text-gray-500">No games available. Create the first one!</p>
+          <Card>
+            <CardContent className="pt-6">
+              <p className="text-muted-foreground text-center">No games available. Create the first one!</p>
+            </CardContent>
+          </Card>
         ) : (
           <div className="grid gap-4">
             {games.map((game) => (
-              <div key={game.id} className="border rounded-lg p-4 bg-white shadow-sm">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-semibold">{game.eventName}</h3>
-                  <span className={`px-2 py-1 rounded text-sm ${
-                    game.status === 'live' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                  }`}>
-                    {game.status}
-                  </span>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600">
-                  <p><strong>Sport:</strong> {game.sportType}</p>
-                  <p><strong>Skill Level:</strong> {game.skillLevel}</p>
-                  <p><strong>Location:</strong> {game.location}</p>
-                  <p><strong>Cost:</strong> ₹{game.costPerPerson}</p>
-                  <p><strong>Players:</strong> {game.playersRequired} - {game.maxPlayers}</p>
-                  <p><strong>Organizer:</strong> {game.organizer.name}</p>
-                </div>
-                
-                <div className="mt-2 text-sm text-gray-600">
-                  <p><strong>Date:</strong> {new Date(game.startTime).toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}</p>
-                  <p><strong>Timings:</strong> {new Date(game.startTime).toLocaleTimeString('en-US', { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: true 
-                  })} - {new Date(game.endTime).toLocaleTimeString('en-US', { 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: true 
-                  })}</p>
-                </div>
-                
-                {game.description && (
-                  <p className="mt-2 text-sm text-gray-700">{game.description}</p>
-                )}
-              </div>
+              <Card key={game.id}>
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle>{game.eventName}</CardTitle>
+                      <CardDescription>{game.sportType} • {game.skillLevel}</CardDescription>
+                    </div>
+                    <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      game.status === 'live' 
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300' 
+                        : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300'
+                    }`}>
+                      {game.status}
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div className="space-y-2">
+                      <p><strong>Location:</strong> {game.location}</p>
+                      <p><strong>Cost:</strong> ₹{game.costPerPerson}</p>
+                      <p><strong>Players:</strong> {game.playersRequired} - {game.maxPlayers}</p>
+                    </div>
+                    <div className="space-y-2">
+                      <p><strong>Date:</strong> {new Date(game.startTime).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}</p>
+                      <p><strong>Time:</strong> {new Date(game.startTime).toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        hour12: true 
+                      })} - {new Date(game.endTime).toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        hour12: true 
+                      })}</p>
+                      <p><strong>Organizer:</strong> {game.organizer.name}</p>
+                    </div>
+                  </div>
+                  
+                  {game.description && (
+                    <div className="mt-4 pt-4 border-t">
+                      <p className="text-sm text-muted-foreground">{game.description}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
         )}

@@ -2,75 +2,87 @@
 
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function HomePage() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+    <div className="container mx-auto p-6 space-y-12">
+      <div className="text-center space-y-6">
+        <h1 className="text-4xl font-bold text-foreground">
           Welcome to GameHub
         </h1>
-        <p className="text-xl text-gray-600 mb-8">
+        <p className="text-xl text-muted-foreground">
           Organize and join sports games in your area
         </p>
         
         {status === 'loading' ? (
-          <div className="text-gray-500">Loading...</div>
+          <div className="text-muted-foreground">Loading...</div>
         ) : status === 'authenticated' ? (
           <div className="space-y-4">
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-foreground">
               Welcome back, {session.user?.name}!
             </p>
             <div className="flex justify-center space-x-4">
-              <Link 
-                href="/games" 
-                className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 font-medium"
-              >
-                View Games
-              </Link>
-              <Link 
-                href="/games" 
-                className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 font-medium"
-              >
-                Create Game
-              </Link>
+              <Button asChild size="lg">
+                <Link href="/games">
+                  View Games
+                </Link>
+              </Button>
+              <Button asChild variant="secondary" size="lg">
+                <Link href="/games">
+                  Create Game
+                </Link>
+              </Button>
             </div>
           </div>
         ) : (
           <div className="space-y-4">
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-foreground">
               Sign in to start organizing and joining games
             </p>
           </div>
         )}
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8 mt-16">
-        <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-          <div className="text-3xl mb-4">🏀</div>
-          <h3 className="text-lg font-semibold mb-2">Create Games</h3>
-          <p className="text-gray-600">
-            Organize sports events and invite players to join
-          </p>
-        </div>
+      <div className="grid md:grid-cols-3 gap-6">
+        <Card className="text-center">
+          <CardHeader>
+            <div className="text-3xl mb-2">🏀</div>
+            <CardTitle>Create Games</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Organize sports events and invite players to join
+            </CardDescription>
+          </CardContent>
+        </Card>
         
-        <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-          <div className="text-3xl mb-4">👥</div>
-          <h3 className="text-lg font-semibold mb-2">Find Players</h3>
-          <p className="text-gray-600">
-            Connect with other players and build your sports community
-          </p>
-        </div>
+        <Card className="text-center">
+          <CardHeader>
+            <div className="text-3xl mb-2">👥</div>
+            <CardTitle>Find Players</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Connect with other players and build your sports community
+            </CardDescription>
+          </CardContent>
+        </Card>
         
-        <div className="text-center p-6 bg-white rounded-lg shadow-sm">
-          <div className="text-3xl mb-4">📍</div>
-          <h3 className="text-lg font-semibold mb-2">Local Events</h3>
-          <p className="text-gray-600">
-            Discover games happening in your area
-          </p>
-        </div>
+        <Card className="text-center">
+          <CardHeader>
+            <div className="text-3xl mb-2">📍</div>
+            <CardTitle>Local Events</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Discover games happening in your area
+            </CardDescription>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

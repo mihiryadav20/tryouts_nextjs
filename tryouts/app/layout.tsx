@@ -32,9 +32,9 @@ export default function RootLayout({
       >
         <AuthProvider>
           <ThemeProvider>
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-background">
               <Navigation />
-              <main>
+              <main className="bg-background text-foreground">
                 {children}
               </main>
             </div>

@@ -2,16 +2,17 @@
 
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';
+import { Button } from '@/components/ui/button';
 
 export default function Navigation() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className="bg-white shadow-sm border-b">
-      <div className="max-w-6xl mx-auto px-4">
+    <nav className="bg-card border-b border-border">
+      <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8">
-            <Link href="/" className="text-xl font-bold text-gray-900">
+            <Link href="/" className="text-xl font-bold text-foreground">
               GameHub
             </Link>
             
@@ -19,13 +20,13 @@ export default function Navigation() {
               <div className="flex space-x-4">
                 <Link 
                   href="/games" 
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Games
                 </Link>
                 <Link 
                   href="/profile" 
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+                  className="text-muted-foreground hover:text-foreground px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Profile
                 </Link>
@@ -35,26 +36,27 @@ export default function Navigation() {
 
           <div className="flex items-center space-x-4">
             {status === 'loading' ? (
-              <div className="text-sm text-gray-500">Loading...</div>
+              <div className="text-sm text-muted-foreground">Loading...</div>
             ) : status === 'authenticated' ? (
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">
+                <span className="text-sm text-foreground">
                   Hi, {session.user?.name}
                 </span>
-                <button
+                <Button
                   onClick={() => signOut()}
-                  className="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600"
+                  variant="destructive"
+                  size="sm"
                 >
                   Sign Out
-                </button>
+                </Button>
               </div>
             ) : (
-              <button
+              <Button
                 onClick={() => signIn('google')}
-                className="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600"
+                size="sm"
               >
                 Sign In
-              </button>
+              </Button>
             )}
           </div>
         </div>
