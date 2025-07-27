@@ -32,10 +32,10 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link href="/games">
-                  Create Game
-                </Link>
-              </Button>
+  <Link href="/games/create">
+    Create Game
+  </Link>
+</Button>
             </div>
           </div>
         ) : (

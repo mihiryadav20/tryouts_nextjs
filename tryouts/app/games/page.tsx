@@ -32,24 +32,12 @@ interface Game {
 export default function GamesPage() {
   const { data: session, status } = useSession();
   const [games, setGames] = useState<Game[]>([]);
-  const [showCreateForm, setShowCreateForm] = useState(false);
+
   const [loading, setLoading] = useState(true);
-  const [creating, setCreating] = useState(false);
+
 
   // Form state
-  const [formData, setFormData] = useState({
-    eventName: '',
-    gameDate: '',
-    startTime: '',
-    endTime: '',
-    location: '',
-    costPerPerson: '',
-    description: '',
-    playersRequired: '',
-    maxPlayers: '',
-    sportType: '',
-    skillLevel: 'Beginner'
-  });
+
 
   // Fetch games
   const fetchGames = async () => {
@@ -75,73 +63,11 @@ export default function GamesPage() {
     }
   }, [status]);
 
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setCreating(true);
 
-    try {
-      // Combine date with times
-      const startTime = `${formData.gameDate}T${formData.startTime}`;
-      const endTime = `${formData.gameDate}T${formData.endTime}`;
-      
-      const response = await fetch('/api/games', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          startTime,
-          endTime
-        }),
-        credentials: 'include', // send session cookies
-      });
 
-      if (response.ok) {
-        // Reset form and refresh games
-        setFormData({
-          eventName: '',
-          gameDate: '',
-          startTime: '',
-          endTime: '',
-          location: '',
-          costPerPerson: '',
-          description: '',
-          playersRequired: '',
-          maxPlayers: '',
-          sportType: '',
-          skillLevel: 'Beginner'
-        });
-        setShowCreateForm(false);
-        fetchGames();
-      } else {
-        const error = await response.json();
-        alert(`Error: ${error.error}`);
-      }
-    } catch (error) {
-      console.error('Error creating game:', error);
-      alert('Error creating game');
-    } finally {
-      setCreating(false);
-    }
-  };
 
-  // Handle input changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
 
-  // Handle select changes
-  const handleSelectChange = (value: string) => {
-    setFormData({
-      ...formData,
-      skillLevel: value
-    });
-  };
+
 
   if (status === 'loading' || loading) {
     return (
@@ -168,168 +94,10 @@ export default function GamesPage() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Games</h1>
-        <Button
-          onClick={() => setShowCreateForm(!showCreateForm)}
-          variant={showCreateForm ? "outline" : "default"}
-        >
-          {showCreateForm ? 'Cancel' : 'Create Game'}
+        <Button asChild variant="secondary">
+          <a href="/games/create">Create Game</a>
         </Button>
       </div>
-
-      {/* Create Game Form */}
-      {showCreateForm && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Create New Game</CardTitle>
-            <CardDescription>Fill in the details to organize a new game</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="eventName">Event Name *</Label>
-                <Input
-                  id="eventName"
-                  name="eventName"
-                  value={formData.eventName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="sportType">Sport Type *</Label>
-                <Input
-                  id="sportType"
-                  name="sportType"
-                  value={formData.sportType}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="e.g., Basketball, Football, Tennis"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="gameDate">Game Date *</Label>
-                <Input
-                  id="gameDate"
-                  name="gameDate"
-                  type="date"
-                  value={formData.gameDate}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="startTime">Start Time *</Label>
-                <Input
-                  id="startTime"
-                  name="startTime"
-                  type="time"
-                  value={formData.startTime}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="endTime">End Time *</Label>
-                <Input
-                  id="endTime"
-                  name="endTime"
-                  type="time"
-                  value={formData.endTime}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="location">Location *</Label>
-                <Input
-                  id="location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="costPerPerson">Cost Per Person *</Label>
-                <Input
-                  id="costPerPerson"
-                  name="costPerPerson"
-                  type="number"
-                  value={formData.costPerPerson}
-                  onChange={handleInputChange}
-                  required
-                  min="0"
-                  step="0.01"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="playersRequired">Players Required *</Label>
-                <Input
-                  id="playersRequired"
-                  name="playersRequired"
-                  type="number"
-                  value={formData.playersRequired}
-                  onChange={handleInputChange}
-                  required
-                  min="1"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="maxPlayers">Max Players *</Label>
-                <Input
-                  id="maxPlayers"
-                  name="maxPlayers"
-                  type="number"
-                  value={formData.maxPlayers}
-                  onChange={handleInputChange}
-                  required
-                  min="1"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="skillLevel">Skill Level</Label>
-                <Select value={formData.skillLevel} onValueChange={handleSelectChange}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select skill level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Beginner">Beginner</SelectItem>
-                    <SelectItem value="Intermediate">Intermediate</SelectItem>
-                    <SelectItem value="Advanced">Advanced</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="md:col-span-2 space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  rows={3}
-                  placeholder="Optional description of the game..."
-                />
-              </div>
-
-              <div className="md:col-span-2">
-                <Button type="submit" disabled={creating}>
-                  {creating ? 'Creating...' : 'Create Game'}
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
 
       {/* Games List */}
       <div className="space-y-4">
