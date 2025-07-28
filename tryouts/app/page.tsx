@@ -9,37 +9,39 @@ export default function HomePage() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="container mx-auto p-6 space-y-12">
-      <div className="text-center space-y-6">
-        <h1 className="text-4xl font-bold text-foreground">
-          Welcome to Sidelines
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Organize and join sports games in your area
-        </p>
-        
-        {status === 'authenticated' && (
-          <div className="space-y-4">
-            <p className="text-lg text-foreground">
-              Welcome back, {session.user?.name}!
+    <div className="h-screen flex flex-col">
+      <div className="h-full flex items-center justify-center p-4">
+        <div className="text-center space-y-8 max-w-2xl w-full">
+          <div>
+            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-4">
+              Sidelines
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground">
+              Organize and join sports games in your area
             </p>
-            <div className="flex justify-center space-x-4">
-              <Button asChild size="lg">
-                <Link href="/games">
-                  View Games
-                </Link>
-              </Button>
-              <Button asChild variant="secondary" size="lg">
-                <Link href="/games/create">
-                  Create Game
-                </Link>
-              </Button>
-            </div>
           </div>
-        )}
+          
+          {status === 'authenticated' && (
+            <div className="space-y-6 pt-4">
+              <p className="text-xl text-foreground">
+                Welcome back, {session.user?.name}!
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Button asChild size="lg" className="w-full sm:w-auto">
+                  <Link href="/games">
+                    View Games
+                  </Link>
+                </Button>
+                <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+                  <Link href="/games/create">
+                    Create Game
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-
-
     </div>
   );
 }
