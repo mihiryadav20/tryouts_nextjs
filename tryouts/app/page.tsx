@@ -50,43 +50,7 @@ export default function HomePage() {
         )}
       </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card className="text-center">
-          <CardHeader>
-            <div className="text-3xl mb-2">🏀</div>
-            <CardTitle>Create Games</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Organize sports events and invite players to join
-            </CardDescription>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardHeader>
-            <div className="text-3xl mb-2">👥</div>
-            <CardTitle>Find Players</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Connect with other players and build your sports community
-            </CardDescription>
-          </CardContent>
-        </Card>
-        
-        <Card className="text-center">
-          <CardHeader>
-            <div className="text-3xl mb-2">📍</div>
-            <CardTitle>Local Events</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Discover games happening in your area
-            </CardDescription>
-          </CardContent>
-        </Card>
-      </div>
+
     </div>
   );
 }
