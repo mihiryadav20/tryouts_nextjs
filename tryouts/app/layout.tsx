@@ -33,7 +33,7 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider>
             <div className="min-h-screen bg-background">
-              <div className="flex justify-end items-center h-16 px-6">
+              <div className="flex justify-end items-center h-16 px-6 bg-transparent">
                 {/* User name/profile link */}
                 <UserProfileLink />
               </div>

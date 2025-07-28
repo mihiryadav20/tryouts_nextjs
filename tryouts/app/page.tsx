@@ -2,15 +2,26 @@
 
 import Link from 'next/link';
 import { useSession, signIn } from 'next-auth/react';
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function HomePage() {
   const { data: session, status } = useSession();
 
+  // Scroll lock for landing page only
+  useEffect(() => {
+    document.body.classList.add('overflow-hidden');
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, []);
+
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
-      <div className="h-full flex items-center justify-center p-4">
+    <div className="h-screen flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1E90FF 0%, #125699 100%)' }}>
+
+
+        <div className="h-full flex items-center justify-center p-4 relative z-10">
         <div className="text-center space-y-8 max-w-2xl w-full">
           <div>
             <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-4">
@@ -45,3 +56,4 @@ export default function HomePage() {
     </div>
   );
 }
+      
