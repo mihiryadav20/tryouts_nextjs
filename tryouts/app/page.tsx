@@ -9,7 +9,7 @@ export default function HomePage() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col overflow-hidden">
       <div className="h-full flex items-center justify-center p-4">
         <div className="text-center space-y-8 max-w-2xl w-full">
           <div>
