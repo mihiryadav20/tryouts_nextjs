@@ -18,9 +18,7 @@ export default function HomePage() {
           Organize and join sports games in your area
         </p>
         
-        {status === 'loading' ? (
-          <div className="text-muted-foreground">Loading...</div>
-        ) : status === 'authenticated' ? (
+        {status === 'authenticated' && (
           <div className="space-y-4">
             <p className="text-lg text-foreground">
               Welcome back, {session.user?.name}!
@@ -32,20 +30,11 @@ export default function HomePage() {
                 </Link>
               </Button>
               <Button asChild variant="secondary" size="lg">
-  <Link href="/games/create">
-    Create Game
-  </Link>
-</Button>
+                <Link href="/games/create">
+                  Create Game
+                </Link>
+              </Button>
             </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <p className="text-lg text-foreground">
-              Sign in to start organizing and joining games
-            </p>
-            <Button onClick={() => signIn('google')} size="lg">
-              Sign In with Google
-            </Button>
           </div>
         )}
       </div>
