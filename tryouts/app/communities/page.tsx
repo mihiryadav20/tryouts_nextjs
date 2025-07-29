@@ -42,7 +42,7 @@ export default function CommunitiesPage() {
   }
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto px-6 md:px-12 lg:px-24 py-6 space-y-6">
       <div className="flex justify-between items-center">
         <MainNav />
         <div>{/* Placeholder for future actions */}</div>
