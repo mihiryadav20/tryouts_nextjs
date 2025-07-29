@@ -18,13 +18,13 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #1E90FF 0%, #125699 100%)' }}>
+    <div className="h-screen flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(to bottom, #1E90FF 0%, #125699 100%)' }}>
 
 
         <div className="h-full flex items-center justify-center p-4 relative z-10">
         <div className="text-center space-y-8 max-w-2xl w-full">
           <div>
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-4">
+            <h1 className="text-7xl md:text-7xl font-bold text-foreground mb-4">
               Sidelines
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground">

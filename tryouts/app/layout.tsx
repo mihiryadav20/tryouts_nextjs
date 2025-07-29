@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OAuth App",
-  description: "Next.js app with Google OAuth authentication",
+  title: "Sidelines",
+  description: "Organize and join sports games in your area",
 };
 
 export default function RootLayout({
@@ -32,12 +32,12 @@ export default function RootLayout({
       >
         <AuthProvider>
           <ThemeProvider>
-            <div className="min-h-screen bg-background">
+            <div className="min-h-screen ">
               <div className="flex justify-end items-center h-16 px-6 bg-transparent">
                 {/* User name/profile link */}
                 <UserProfileLink />
               </div>
-              <main className="bg-background text-foreground">
+              <main className=" text-foreground">
                 {children}
               </main>
             </div>

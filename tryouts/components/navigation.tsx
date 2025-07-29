@@ -8,7 +8,7 @@ export default function Navigation() {
   const { data: session, status } = useSession();
 
   return (
-    <nav className="bg-card border-b border-border">
+    <nav className="bg-transparent">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8">
