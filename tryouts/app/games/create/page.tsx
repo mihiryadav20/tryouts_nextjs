@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Loader } from 'lucide-react';
 
 export default function CreateGamePage() {
   const { data: session, status } = useSession();
@@ -28,9 +29,11 @@ export default function CreateGamePage() {
     skillLevel: "Beginner",
   });
 
-  if (status === "loading") {
+    if (status === "loading") {
     return (
-      <div className="container mx-auto p-6 text-center">Loading...</div>
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="h-16 w-16 animate-spin" />
+      </div>
     );
   }
   if (status === "unauthenticated") {
@@ -157,7 +160,11 @@ export default function CreateGamePage() {
             </div>
             <div className="pt-4">
               <Button type="submit" disabled={creating} className="w-full">
-                {creating ? "Creating..." : "Create Game"}
+                {creating ? (
+                  <Loader className="h-5 w-5 animate-spin" />
+                ) : (
+                  "Create Game"
+                )}
               </Button>
             </div>
           </form>

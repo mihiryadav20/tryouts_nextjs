@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { Loader } from 'lucide-react';
 
 interface Game {
   id: string;
@@ -69,10 +70,10 @@ export default function GamesPage() {
 
 
 
-  if (status === 'loading' || loading) {
+    if (status === 'loading' || loading) {
     return (
-      <div className="container mx-auto p-6">
-        <div className="text-center">Loading...</div>
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="h-16 w-16 animate-spin" />
       </div>
     );
   }
@@ -94,7 +95,7 @@ export default function GamesPage() {
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Games</h1>
-        <Button asChild variant="secondary">
+        <Button asChild variant="default">
           <a href="/games/create">Create Game</a>
         </Button>
       </div>
