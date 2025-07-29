@@ -18,32 +18,63 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col relative overflow-hidden" style={{ background: 'linear-gradient(to bottom, #1E90FF 0%, #125699 100%)' }}>
+    <div className="h-screen flex flex-col relative overflow-hidden">
+      {/* Gradient Background */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, oklch(0.145 0 0) 0%, oklch(0.25 0 0) 100%)' }}>
+        {/* No foggy orbs - only gradient remains */}
+        
+        {/* Moving Gradient Overlay */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent" 
+          style={{
+            animation: 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            opacity: 0.6
+          }}
+        ></div>
+      </div>
 
+      {/* Animated Particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-white/30 rounded-full animate-bounce"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`
+            }}
+          ></div>
+        ))}
+      </div>
 
-        <div className="h-full flex items-center justify-center p-4 relative z-10">
-        <div className="text-center space-y-8 max-w-2xl w-full">
-          <div>
-            <h1 className="text-7xl md:text-7xl font-bold text-foreground mb-4">
+      <div className="h-full flex items-center justify-center p-4 relative z-10">
+        <div className="text-center space-y-12 max-w-4xl w-full">
+          <div className="space-y-8">
+            {/* Main Title */}
+            <h1 className="p-4 text-7xl md:text-[15vw] lg:text-[12vw] xl:text-[10vw] font-black text-white mb-6 leading-none">
               Sidelines
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground">
+            
+            {/* Subtitle */}
+            <p className="text-lg md:text-4xl lg:text-5xl text-white/90 font-light">
               Organize and join sports games in your area
             </p>
           </div>
           
           {status === 'authenticated' && (
-            <div className="space-y-6 pt-4">
-              <p className="text-xl text-foreground">
+            <div className="space-y-8 pt-8">
+              <p className="text-2xl md:text-3xl text-white font-medium">
                 Welcome back, {session.user?.name}!
               </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button asChild size="lg" className="w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row justify-center gap-6">
+                <Button asChild size="lg" className="w-full sm:w-auto text-xl px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 transform hover:scale-105 transition-all duration-300">
                   <Link href="/games">
                     View Games
                   </Link>
                 </Button>
-                <Button asChild variant="secondary" size="lg" className="w-full sm:w-auto">
+                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto text-xl px-8 py-4 border-white text-white hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all duration-300">
                   <Link href="/games/create">
                     Create Game
                   </Link>
