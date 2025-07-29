@@ -54,7 +54,7 @@ export function LoginForm({
       </div>
       <div className="grid gap-4">
         <Button
-          onClick={() => signIn("google", { callbackUrl: "/profile" })}
+          onClick={() => signIn("google", { callbackUrl: "/games" })}
           className="w-full "
           size="lg"
         >

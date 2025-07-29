@@ -6,16 +6,23 @@ import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+import { useRouter } from 'next/navigation';
+
 export default function HomePage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
-  // Scroll lock for landing page only
+  // Redirect authenticated users to /games
   useEffect(() => {
+    if (status === 'authenticated') {
+      router.replace('/games');
+      return;
+    }
     document.body.classList.add('overflow-hidden');
     return () => {
       document.body.classList.remove('overflow-hidden');
     };
-  }, []);
+  }, [status, router]);
 
   return (
     <div className="h-screen flex flex-col relative overflow-hidden">
@@ -53,8 +60,8 @@ export default function HomePage() {
         <div className="text-center space-y-12 max-w-4xl w-full">
           <div className="space-y-8">
             {/* Main Title */}
-            <h1 className="p-4 text-7xl md:text-[15vw] lg:text-[12vw] xl:text-[10vw] font-black text-white mb-6 leading-none">
-              Sidelines
+            <h1 className="p-4 text-6xl md:text-[15vw] lg:text-[12vw] xl:text-[10vw] font-black text-white mb-6 leading-none">
+              SIDELINES
             </h1>
             
             {/* Subtitle */}
@@ -63,28 +70,10 @@ export default function HomePage() {
             </p>
           </div>
           
-          {status === 'authenticated' && (
-            <div className="space-y-8 pt-8">
-              <p className="text-2xl md:text-3xl text-white font-medium">
-                Welcome back, {session.user?.name}!
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-6">
-                <Button asChild size="lg" className="w-full sm:w-auto text-xl px-8 py-4 bg-white text-blue-600 hover:bg-gray-100 transform hover:scale-105 transition-all duration-300">
-                  <Link href="/games">
-                    View Games
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="w-full sm:w-auto text-xl px-8 py-4 border-white text-white hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all duration-300">
-                  <Link href="/games/create">
-                    Create Game
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          )}
+          {/* Removed authenticated user UI since redirect happens immediately */}
+          {/* This space intentionally left blank */}
         </div>
       </div>
     </div>
   );
 }
-      

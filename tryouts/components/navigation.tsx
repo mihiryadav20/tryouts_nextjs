@@ -52,7 +52,7 @@ export default function Navigation() {
               </div>
             ) : (
               <Button
-                onClick={() => signIn('google')}
+                onClick={() => signIn('google', { callbackUrl: "/games" })}
                 size="sm"
               >
                 Sign In
