@@ -37,16 +37,21 @@ export default function DashboardLayout({
     );
   }
 
+  // Hide navigation on create game page
+  const isCreateGamePage = pathname === '/games/create';
+  
   return (
     <div className="container mx-auto px-6 md:px-12 lg:px-24 py-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <MainNav />
-        {pathname === '/games' && (
-          <Button asChild variant="default" className="text-white">
-            <Link href="/games/create">Create Game</Link>
-          </Button>
-        )}
-      </div>
+      {!isCreateGamePage && (
+        <div className="flex justify-between items-center">
+          <MainNav />
+          {pathname === '/games' && (
+            <Button asChild variant="default" className="text-white">
+              <Link href="/games/create">Create Game</Link>
+            </Button>
+          )}
+        </div>
+      )}
       {children}
     </div>
   );
