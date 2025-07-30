@@ -29,26 +29,6 @@ export default function CreateGamePage() {
     skillLevel: "Beginner",
   });
 
-    if (status === "loading") {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="h-16 w-16 animate-spin" />
-      </div>
-    );
-  }
-  if (status === "unauthenticated") {
-    return (
-      <div className="container mx-auto p-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Create Game</CardTitle>
-            <CardDescription>Please sign in to create a game.</CardDescription>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -89,7 +69,7 @@ export default function CreateGamePage() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-2xl">
+    <div className="max-w-2xl mx-auto">
       <Card>
         <CardHeader>
           <CardTitle>Create a New Game</CardTitle>

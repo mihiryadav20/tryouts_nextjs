@@ -2,14 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import { Loader } from 'lucide-react';
-import { MainNav } from '@/components/main-nav';
 
 interface Game {
   id: string;
@@ -34,12 +28,7 @@ interface Game {
 export default function GamesPage() {
   const { data: session, status } = useSession();
   const [games, setGames] = useState<Game[]>([]);
-
   const [loading, setLoading] = useState(true);
-
-
-  // Form state
-
 
   // Fetch games
   const fetchGames = async () => {
@@ -65,42 +54,16 @@ export default function GamesPage() {
     }
   }, [status]);
 
-
-
-
-
-
-
-    if (status === 'loading' || loading) {
+  if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="h-16 w-16 animate-spin" />
-      </div>
-    );
-  }
-
-  if (status === 'unauthenticated') {
-    return (
-      <div className="container mx-auto p-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Games</CardTitle>
-            <CardDescription>Please sign in to view and create games.</CardDescription>
-          </CardHeader>
-        </Card>
+      <div className="flex items-center justify-center h-64">
+        <Loader className="h-8 w-8 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-6 md:px-12 lg:px-24 py-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <MainNav />
-        <Button asChild variant="default" className="text-white">
-          <a href="/games/create">Create Game</a>
-        </Button>
-      </div>
-
+    <div className="space-y-6">
       {/* Games list */}
       {games.length === 0 ? (
         <Card>
